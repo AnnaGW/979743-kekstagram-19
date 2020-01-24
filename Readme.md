@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url]
 
 * Студент: [Анна Богословская](https://up.htmlacademy.ru/javascript/19/user/979743).
-* Наставник: `Неизвестно`.
+* Наставник: `Павел Белик`.
 
 ---
 
