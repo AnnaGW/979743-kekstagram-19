@@ -102,14 +102,9 @@ var closeImgEditForm = function () {
 uploadFile.addEventListener('change', openImgEditForm);
 
 imgEditFormCancel.addEventListener('click', closeImgEditForm);
-// ---------------------------
-// var effectLevelLine = document.querySelector('.effect-level__line');
 var effectLevelPin = document.querySelector('.effect-level__pin');
 
 effectLevelPin.addEventListener('mouseup', function () {
-  // var width = effectLevelLine.style.width;
-  // var pinPosition = effectLevelPin.style.left;
-  // не знаю пока как рассчитать положение ползунка
 });
 
 var onHashtagsValidation = function () {
