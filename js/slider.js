@@ -7,7 +7,7 @@
   var effectLevelDepth = effectLevelLine.querySelector('.effect-level__depth');
   var pinPosition = 0.2;
 
-  effectLevelPin.addEventListener('mousedown', function (evt) {
+  var onMouseDown = function (evt) {
     evt.preventDefault();
     var startCoordX = evt.clientX;
 
@@ -40,7 +40,9 @@
 
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
-  });
+  };
+
+  effectLevelPin.addEventListener('mousedown', onMouseDown);
 
   window.slider = {
     pinPosition: pinPosition
