@@ -9,6 +9,7 @@
   var effectLevelPin = effectLevelLine.querySelector('.effect-level__pin');
   var effectLevelDepth = effectLevelLine.querySelector('.effect-level__depth');
 
+
   for (var i = 0; i < EFFECTS_QUANTITY; i++) {
     var effect = effectsList.item(i);
     effect.addEventListener('focus', function () {

@@ -1443,3 +1443,24 @@ main {
     grid-row: 1 / span 3;
   }
 }
+
+.error-wrap {
+  position: absolute;
+  top: 45%;
+  left: calc(50% - 300px);
+  width: 600px;
+  height: 115px;
+
+  padding-top: 50px;
+  padding-bottom: 50px;
+  z-index: 100;
+
+  font-size: 20px;
+  line-height: 20px;
+  text-align: center;
+  color: #fff;
+
+  background-color: #4eb543;
+  border-radius: 10px;
+  box-shadow: 10px 10px 0 #1a850f;
+}
