@@ -5,6 +5,7 @@
 
   var download = function (onSuccess, onError) {
     var xhr = new XMLHttpRequest();
+
     xhr.responseType = 'json'; // !!!
     xhr.open('GET', URL);
 
@@ -21,9 +22,10 @@
     xhr.addEventListener('timeout', function () {
       onError('Запрос не успел выполниться за ' + xhr.timeout / 1000 + 'с');
     });
-    xhr.timeout = 2000; // 2s
+    xhr.timeout = window.consts.TIMEOUT_DOWNLOAD_ERRORR;
 
     xhr.send();
+
   };
 
   window.server = {

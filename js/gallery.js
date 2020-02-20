@@ -1,15 +1,22 @@
 'use strict';
 
 (function () {
-  var photoConteiner = document.querySelector('.pictures');
-  var photoTemplate = document.querySelector('#picture').content;
-  var newPhotoTemplate = photoTemplate.querySelector('.picture');
+
+  var defaultPhotoButton = document.querySelector('#filter-default');
+  var randomPhotoButton = document.querySelector('#filter-random');
+  var discussedPhotoButton = document.querySelector('#filter-discussed');
+
+  var allDataCopy = [];
 
   var onSuccessLoad = function (serverData) {
+    allDataCopy = serverData;
     for (var i = 0; i < serverData.length; i++) {
-      createNewPhoto(serverData[i]);
+      window.photo.create(serverData[i]);
     }
+    var imgFilters = document.querySelector('.img-filters');
+    imgFilters.classList.remove('img-filters--inactive');
   };
+
   var onErrorLoad = function (errorMessage) {
     var errorWrap = document.createElement('div');
     errorWrap.classList.add('error-wrap');
@@ -18,17 +25,39 @@
   };
 
   window.server.download(onSuccessLoad, onErrorLoad);
+  // -----------------------------------------------------------------
+  var onDefaultPhotoButton = function () {
+    discussedPhotoButton.classList.remove('img-filters__button--active');
+    randomPhotoButton.classList.remove('img-filters__button--active');
+    defaultPhotoButton.classList.add('img-filters__button--active');
 
-  var createNewPhoto = function (photoItem) {
-    var newPhoto = newPhotoTemplate.cloneNode(true);
-    var newPhotoImg = newPhoto.querySelector('.picture__img');
-
-
-    newPhotoImg.src = photoItem.url;
-    var newPhotoLikes = newPhoto.querySelector('.picture__likes');
-    newPhotoLikes.textContent = photoItem.likes;
-    var newPhotoComments = newPhoto.querySelector('.picture__comments');
-    newPhotoComments.textContent = photoItem.comments.length;
-    photoConteiner.appendChild(newPhoto);
+    window.util.debounce(function () {
+      window.photo.update(window.filters.defaultPhoto(allDataCopy));
+    });
   };
+
+  var onRandomPhotoButton = function () {
+    defaultPhotoButton.classList.remove('img-filters__button--active');
+    discussedPhotoButton.classList.remove('img-filters__button--active');
+    randomPhotoButton.classList.add('img-filters__button--active');
+
+    window.util.debounce(function () {
+      window.photo.update(window.filters.randomPhoto(allDataCopy));
+    });
+  };
+
+  var onDiscussedPhotoButton = function () {
+    defaultPhotoButton.classList.remove('img-filters__button--active');
+    randomPhotoButton.classList.remove('img-filters__button--active');
+    discussedPhotoButton.classList.add('img-filters__button--active');
+
+    window.util.debounce(function () {
+      window.photo.update(window.filters.discussedPhoto(allDataCopy));
+    });
+  };
+
+  defaultPhotoButton.addEventListener('click', onDefaultPhotoButton);
+  randomPhotoButton.addEventListener('click', onRandomPhotoButton);
+  discussedPhotoButton.addEventListener('click', onDiscussedPhotoButton);
+
 })();
