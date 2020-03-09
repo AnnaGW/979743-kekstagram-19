@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+  // Hashtags validation
   var textHashtags = document.querySelector('.text__hashtags');
   var onHashtagsValidation = function () {
     var hashtagsArray = textHashtags.value.split(' ');
@@ -54,4 +55,13 @@
 
   textHashtags.addEventListener('change', onHashtagsValidation);
 
+  // Comment validation
+  var textComment = document.querySelector('.social__footer-text');
+  var onCommentValidation = function () {
+    if (textComment.validity.tooLong) {
+      textComment.setCustomValidity('Комментарий не должен содержать более 140 символов');
+    }
+  };
+
+  textComment.addEventListener('invalid', onCommentValidation);
 })();
