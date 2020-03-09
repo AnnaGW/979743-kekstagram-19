@@ -15,6 +15,21 @@
     }
     var imgFilters = document.querySelector('.img-filters');
     imgFilters.classList.remove('img-filters--inactive');
+
+    var miniatures = document.querySelectorAll('.picture__img'); // коллекция миниатюр
+    var picturesContainer = document.querySelector('.pictures'); // родитель
+    var onFullsizeClick = function (evt) {
+      var targetElement = evt.target;
+      for (var j = 0; j < miniatures.length; j++) {
+        if (miniatures[j] === targetElement) {
+          var targetIndex = j;
+          break;
+        }
+      }
+      window.fullSize.fullsize(serverData[targetIndex]);
+    };
+    picturesContainer.addEventListener('click', onFullsizeClick);
+
   };
 
   var onErrorLoad = function (errorMessage) {
