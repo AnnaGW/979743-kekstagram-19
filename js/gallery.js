@@ -33,7 +33,6 @@
     imgFilters.classList.remove('img-filters--inactive');
     miniatures = document.querySelectorAll('.picture__img'); // коллекция миниатюр
     picturesContainer.addEventListener('click', onFullsizeClick);
-    console.log(miniatures);
   };
 
   var onErrorLoad = function (errorMessage) {
