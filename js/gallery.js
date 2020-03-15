@@ -8,6 +8,22 @@
 
   var allDataCopy = [];
 
+  var picturesContainer = document.querySelector('.pictures'); // родитель
+  var miniatures; // коллекция миниатюр
+
+  var onFullsizeClick = function (evt) {
+    var targetElement = evt.target;
+    for (var j = 0; j < miniatures.length; j++) {
+      if (miniatures[j].src === targetElement.src) {
+        var targetIndex = j;
+        break;
+      }
+    }
+    if (targetIndex < 25) {
+      window.fullSize.fullsize(allDataCopy[targetIndex]);
+    }
+  };
+
   var onSuccessLoad = function (serverData) {
     allDataCopy = serverData;
     for (var i = 0; i < serverData.length; i++) {
@@ -15,21 +31,8 @@
     }
     var imgFilters = document.querySelector('.img-filters');
     imgFilters.classList.remove('img-filters--inactive');
-
-    var miniatures = document.querySelectorAll('.picture__img'); // коллекция миниатюр
-    var picturesContainer = document.querySelector('.pictures'); // родитель
-    var onFullsizeClick = function (evt) {
-      var targetElement = evt.target;
-      for (var j = 0; j < miniatures.length; j++) {
-        if (miniatures[j] === targetElement) {
-          var targetIndex = j;
-          break;
-        }
-      }
-      window.fullSize.fullsize(serverData[targetIndex]);
-    };
+    miniatures = document.querySelectorAll('.picture__img'); // коллекция миниатюр
     picturesContainer.addEventListener('click', onFullsizeClick);
-
   };
 
   var onErrorLoad = function (errorMessage) {
@@ -59,6 +62,7 @@
     window.util.debounce(function () {
       window.photo.update(window.filters.randomPhoto(allDataCopy));
     });
+    // прослушка события устанавливается один раз в onSuccessLoad; она срабатывает правильно; onFullsizeClick запускается; miniatures определяются один раз в onSuccessLoad; в onRandomPhotoButton они видны; но в onSuccessLoad сравнение miniatures[j] === targetElement проходит, а в onRandomPhotoButton нет; почему - не знаю.
   };
 
   var onDiscussedPhotoButton = function () {
