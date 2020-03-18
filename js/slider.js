@@ -5,9 +5,19 @@
   var effectLevelLine = document.querySelector('.effect-level__line');
   var effectLevelPin = effectLevelLine.querySelector('.effect-level__pin');
   var effectLevelDepth = effectLevelLine.querySelector('.effect-level__depth');
+  var effectLevelValue = document.querySelector('.effect-level__value'); // input
+
   var pinPosition = 0.2;
+  var chosenEffect = 'empty';
+
+  // сбрасываем положение ползунка при смене эффекта
+  var resetPinPosition = function () {
+    effectLevelPin.style.left = String(window.consts.START_PIN_POSITION * 100) + '%';
+    effectLevelDepth.style.width = String(window.consts.START_PIN_POSITION * 100) + '%';
+  };
 
   var onMouseDown = function (evt) {
+    chosenEffect = window.chosen.effect;
     evt.preventDefault();
     var startCoordX = evt.clientX;
 
@@ -27,24 +37,28 @@
       } else {
         effectLevelPin.style.left = (effectLevelPin.offsetLeft - shiftX) + 'px';
         effectLevelDepth.style.width = (effectLevelPin.offsetLeft - shiftX) + 'px';
+        pinPosition = effectLevelPin.offsetLeft / effectLevelLine.offsetWidth; // от 0 до 1
+
+        if (chosenEffect !== '') {
+          window.applyingEffects.effects(pinPosition, chosenEffect);
+        }
       }
     };
 
     var onMouseUp = function (upEvt) {
       upEvt.preventDefault();
-
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
-      pinPosition = effectLevelPin.offsetLeft / effectLevelLine.offsetWidth;
+
+      effectLevelValue.value = Math.round(pinPosition * 100).toString();
     };
 
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   };
 
-  effectLevelPin.addEventListener('mousedown', onMouseDown);
-
   window.slider = {
-    pinPosition: pinPosition
+    onMouseDown: onMouseDown,
+    resetPinPosition: resetPinPosition
   };
 })();

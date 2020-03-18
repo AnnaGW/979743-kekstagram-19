@@ -6,8 +6,10 @@
   var body = document.querySelector('body');
   var commentsLoader = document.querySelector('.comments-loader');
   var socialCommentsList = document.querySelector('.social__comments');
+  var newComment = document.querySelector('.social__footer-text');
 
   var socialComment = socialCommentsList.querySelector('.social__comment');
+
   var closeFullsize = function () {
     bigPicture.classList.add('hidden');
     var socialCommentItemsNew = socialCommentsList.querySelectorAll('.social__comment');
@@ -90,6 +92,12 @@
 
     document.addEventListener('keydown', onFullsizeEscPress);
     bigPictureCancel.addEventListener('click', closeFullsize);
+    newComment.addEventListener('focus', function () {
+      document.removeEventListener('keydown', onFullsizeEscPress);
+    });
+    newComment.addEventListener('blur', function () {
+      document.addEventListener('keydown', onFullsizeEscPress);
+    });
     body.classList.add('modal-open');
   };
 
