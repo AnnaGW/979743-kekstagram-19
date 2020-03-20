@@ -11,6 +11,7 @@
   var START_PIN_POSITION = 1;
   var URL_GET = 'https://js.dump.academy/kekstagram/data';
   var URL_POST = 'https://js.dump.academy/kekstagram';
+  var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
   window.consts = {
     PHOTOS_QUANTITY: PHOTOS_QUANTITY,
     RANDOM_PHOTOS_QUANTITY: RANDOM_PHOTOS_QUANTITY,
@@ -21,6 +22,7 @@
     EFFECTS_QUANTITY: EFFECTS_QUANTITY,
     START_PIN_POSITION: START_PIN_POSITION,
     URL_GET: URL_GET,
-    URL_POST: URL_POST
+    URL_POST: URL_POST,
+    FILE_TYPES: FILE_TYPES
   };
 })();

@@ -5,8 +5,7 @@
   // открытие / закрытие диалогового окна загрузки изображения
   var body = document.querySelector('body');
   var imgUpload = document.querySelector('.img-upload');
-  var uploadFile = imgUpload.querySelector('#upload-file');
-  // var imgUploadPreview = imgUpload.querySelector('.img-upload__preview img');
+  var uploadFile = imgUpload.querySelector('#upload-file'); // input type="file"
   var imgEditForm = imgUpload.querySelector('.img-upload__overlay');
   var imgEditFormCancel = imgEditForm.querySelector('.img-upload__cancel');
   var textHashtags = imgUpload.querySelector('.text__hashtags'); // input
@@ -56,6 +55,8 @@
   };
 
   var openImgEditForm = function () {
+
+    window.selectionFile.load();
 
     imgEditForm.classList.remove('hidden');
 
