@@ -33,17 +33,15 @@
     imgFilters.classList.remove('img-filters--inactive');
     miniatures = document.querySelectorAll('.picture__img'); // коллекция миниатюр
     picturesContainer.addEventListener('click', onFullsizeClick);
+
   };
 
   var onErrorLoad = function (errorMessage) {
-    var errorWrap = document.createElement('div');
-    errorWrap.classList.add('error-wrap');
-    errorWrap.textContent = errorMessage;
-    document.body.insertAdjacentElement('afterbegin', errorWrap);
+    window.messages.renderErrorGetting(errorMessage);
   };
 
   window.server.download(onSuccessLoad, onErrorLoad);
-  // -----------------------------------------------------------------
+  // ------------фильтры-----------------------------------------------------
   var onDefaultPhotoButton = function () {
     discussedPhotoButton.classList.remove('img-filters__button--active');
     randomPhotoButton.classList.remove('img-filters__button--active');
@@ -62,7 +60,6 @@
     window.util.debounce(function () {
       window.photo.update(window.filters.randomPhoto(allDataCopy));
     });
-    // прослушка события устанавливается один раз в onSuccessLoad; она срабатывает правильно; onFullsizeClick запускается; miniatures определяются один раз в onSuccessLoad; в onRandomPhotoButton они видны; но в onSuccessLoad сравнение miniatures[j] === targetElement проходит, а в onRandomPhotoButton нет; почему - не знаю.
   };
 
   var onDiscussedPhotoButton = function () {
