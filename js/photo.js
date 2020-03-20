@@ -26,9 +26,9 @@
   };
   var update = function (selectPhoto) {
     var filteredData = selectPhoto;
-    window.photo.remove();
+    remove();
     for (var i = 0; i < filteredData.length; i++) {
-      window.photo.create(filteredData[i]);
+      create(filteredData[i]);
     }
   };
 

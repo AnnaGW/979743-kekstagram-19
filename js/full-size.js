@@ -16,6 +16,7 @@
     for (var k = socialCommentItemsNew.length - 1; k > 0; k--) {
       socialCommentItemsNew[k].remove();
     }
+    newComment.value = '';
     document.removeEventListener('keydown', onFullsizeEscPress);
     body.classList.remove('modal-open');
   };
@@ -35,7 +36,6 @@
   };
 
   var fullsize = function (photoItem) {
-
     var bigPictureImg = document.querySelector('.big-picture__img img');
     bigPictureImg.src = photoItem.url;
     var likesСount = document.querySelector('.likes-count');
