@@ -20,19 +20,19 @@
     // closing message
     var successMessage = document.querySelector('.success');
 
-    var closeSuccessMessage = function () {
+    var onSuccessMessageClose = function () {
       successMessage.remove();
-      document.removeEventListener('keydown', closeSuccessMessageEscPress);
+      document.removeEventListener('keydown', onSuccessMessageEscPress);
     };
 
-    var closeSuccessMessageEscPress = function (evt) {
+    var onSuccessMessageEscPress = function (evt) {
       if (evt.key === window.consts.ESC_KEY) {
-        closeSuccessMessage();
+        onSuccessMessageClose();
       }
     };
 
-    successMessage.addEventListener('click', closeSuccessMessage);
-    document.addEventListener('keydown', closeSuccessMessageEscPress);
+    successMessage.addEventListener('click', onSuccessMessageClose);
+    document.addEventListener('keydown', onSuccessMessageEscPress);
   };
 
   var renderErrorSending = function () {
@@ -47,7 +47,7 @@
     var closeErrorMessage = function () {
       errorMessage.remove();
       document.removeEventListener('keydown', closeErrorMessageEscPress);
-      window.uploadPhoto.openImgEditForm();
+      window.uploadPhoto.onImgEditFormOpen();
     };
 
     var closeErrorMessageEscPress = function (evt) {

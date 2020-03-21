@@ -20,7 +20,7 @@
       }
     }
     if (targetIndex < 25) {
-      window.fullSize.fullsize(allDataCopy[targetIndex]);
+      window.fullSize.render(allDataCopy[targetIndex]);
     }
   };
 

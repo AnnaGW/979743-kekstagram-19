@@ -8,6 +8,7 @@
   var uploadFile = imgUpload.querySelector('#upload-file'); // input type="file"
   var imgEditForm = imgUpload.querySelector('.img-upload__overlay');
   var imgEditFormCancel = imgEditForm.querySelector('.img-upload__cancel');
+  var imgUploadEffectLevel = document.querySelector('.img-upload__effect-level');
   var textHashtags = imgUpload.querySelector('.text__hashtags'); // input
   var textDescription = imgUpload.querySelector('.text__description'); // textarea
   var effectLevelLine = imgUpload.querySelector('.effect-level__line');
@@ -20,7 +21,7 @@
   var scaleControlBigger = imgUpload.querySelector('.scale__control--bigger');// button
   var scaleControlValue = imgUpload.querySelector('.scale__control--value'); // input
 
-  var closeImgEditForm = function () {
+  var onImgEditFormClose = function () {
     imgEditForm.classList.add('hidden');
     window.applyingEffects.leadToEffectNone();
     uploadFile.value = '';
@@ -50,24 +51,33 @@
 
   var onImgEditFormEscPress = function (evt) {
     if (evt.key === window.consts.ESC_KEY) {
-      closeImgEditForm();
+      onImgEditFormClose();
     }
   };
 
-  var openImgEditForm = function () {
+  var onImgEditFormOpen = function () {
 
     window.selectionFile.load();
-
+    imgUploadEffectLevel.classList.add('hidden');
     imgEditForm.classList.remove('hidden');
 
-    imgEditFormCancel.addEventListener('click', closeImgEditForm);
+    imgEditFormCancel.addEventListener('click', onImgEditFormClose);
     document.addEventListener('keydown', onImgEditFormEscPress);
+
     textHashtags.addEventListener('focus', function () {
       document.removeEventListener('keydown', onImgEditFormEscPress);
     });
+    textDescription.addEventListener('focus', function () {
+      document.removeEventListener('keydown', onImgEditFormEscPress);
+    });
+
     textHashtags.addEventListener('blur', function () {
       document.addEventListener('keydown', onImgEditFormEscPress);
     });
+    textDescription.addEventListener('blur', function () {
+      document.addEventListener('keydown', onImgEditFormEscPress);
+    });
+
     // ---------------- масштабирование -----------------------
     scaleControlSmaller.addEventListener('click', window.scale.onScaleSmallerClick);
 
@@ -93,17 +103,17 @@
     effectsList.item(5).addEventListener('click', window.applyingEffects.onEffectHeatClick);
 
     body.classList.add('modal-open');
-  }; // end of openImgEditForm
+  }; // end of onImgEditFormOpen
 
-  uploadFile.addEventListener('change', openImgEditForm);
+  uploadFile.addEventListener('change', onImgEditFormOpen);
 
   // --------------обработчики отправки данных на сервер
   var onSuccessSend = function () {
-    closeImgEditForm();
+    onImgEditFormClose();
     window.messages.renderSuccessSending();
   };
   var onErrorSend = function () {
-    closeImgEditForm();
+    onImgEditFormClose();
     window.messages.renderErrorSending();
   };
 
@@ -114,6 +124,6 @@
   });
 
   window.uploadPhoto = {
-    openImgEditForm: openImgEditForm
+    onImgEditFormOpen: onImgEditFormOpen
   };
 })();
